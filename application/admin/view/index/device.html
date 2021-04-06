@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <meta name="keywords" content="">
+    <meta name="description" content="">
+    <title>{$title}</title>
+    {// 加载CSS样式}
+    {load href="__STATIC__/admin/css/public/public.css"/}
+    {load href="__STATIC__/admin/layui/css/layui.css"/}
+    {load href="__STATIC__/admin/css/iconfont/iconfont.css"/}
+    {load href="__STATIC__/admin/css/admin/admin.css"/}
+    {// 引入zTree样式}
+    {// load href="__STATIC__/admin/layui_exts/ztree/metroStyle.css"/}
+</head>
+<body class="layui-layout-body">
+<div class="layui-card">
+    <div class="layui-card-header">
+        <!DOCTYPE HTML>
+        <html>
+        <head>
+            <meta charset="utf-8">
+            <meta name="renderer" content="webkit|ie-comp|ie-stand">
+            <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+            <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no" />
+            <meta http-equiv="Cache-Control" content="no-siteapp" />
+            <link rel="icon" href="http://www.qyx0425.top/liangchen.jpg">
+            <title>关于我们</title>
+            {load href="__STATIC__/tongji/plugins/bootstrap-3.3.7/css/bootstrap.min.css"/}
+            {load href="__STATIC__/admin/css/public/public.css"/}
+            {load href="__STATIC__/admin/layui/css/layui.css"/}
+            {load href="__STATIC__/admin/css/admin/layuimini.css"/}
+            {load href="__STATIC__/admin/css/font-awesome-4.7.0/css/font-awesome.min.css"/}
+            {load href="__STATIC__/admin/css/iconfont/iconfont.css"/}
+            {load href="__STATIC__/admin/css/admin/admin.css"/}
+        </head>
+        <style>
+            .navbar{background: #0F769F;}
+
+        </style>
+        <body>
+
+        <nav class="navbar navbar-inverse " role="navigation">
+            <div class="container-fluid">
+                <div class="navbar-header">
+                    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#example-navbar-collapse">
+                        <span class="sr-only">切换导航</span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </button>
+                    <a class="navbar-brand" href="#">
+                        <img src="http://www.qyx0425.top/liangchen.jpg" height="100%" />
+                    </a>
+                </div>
+                <div class="collapse navbar-collapse" id="example-navbar-collapse">
+                    <ul class="nav navbar-nav">
+                        <li ><a class="icon-bar" href="index.html">监控中心</a>
+                        </li>
+                        <li class="active"><a href="device.html">数据中心</a>
+                        </li>
+                        <li> <a href="javascript:;" onclick="editPassword();" data-title="修改密码" data-icon="fa fa-gears">修改密码</a>
+                        </li>
+                        <li ><a href="about.html">关于我们</a>
+                        </li>
+                    </ul>
+                    <ul class="nav navbar-nav navbar-right">
+                        <li><a>欢迎您,admin</a>
+                        </li>
+                        <li><a href="javascript:;" class="login-out" onclick="logout()">退出登录</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+    </div>
+    <div class="layui-card-body">
+        <table class="layui-hide" id="dataTable" lay-filter="dataTable"></table>
+        {// 顶部工具栏}
+
+    </div>
+</div>
+
+{// 加载js文件}
+{load href="__STATIC__/admin/js/jquery-3.4.1.min.js"/}
+{load href="__STATIC__/admin/layui/layui.js"/}
+{load href="__STATIC__/admin/js/jquery-3.4.1.min.js"/}
+{load href="__STATIC__/admin/layui/layui.js"/}
+{load href="__STATIC__/admin/js/admin/layout.js"/}
+
+{// js代码}
+{block name="layui"}{/block}
+{block name="javascript"}{/block}
+</body>
+</html>
+
+
+{// 行内工具栏}
+<script type="text/html" id="barTool">
+    <a href="javascript:;" lay-event="edit" class="layui-btn layui-btn-xs"><i class="iconfont">&#xe7e0;</i> 编辑</a>
+    <a href='javascript:;' lay-event="del" class="layui-btn layui-btn-danger layui-btn-xs"><i class="iconfont">&#xe6b4;</i> 删除</a>
+</script>
+
+{// 状态}
+<script type="text/html" id="status">
+    {{# if(d.flag == 1){ }}
+    <button class="layui-btn layui-btn-xs" onclick="setStatus('{{d.id}}', '{{d.flag}}')">启用</button>
+    {{# } else { }}
+    <button class="layui-btn layui-btn-xs layui-btn-danger" onclick="setStatus('{{d.id}}', '{{d.flag}}')">禁用</button>
+    {{# } }}
+</script>
+
+
+<script type="text/html" id="imgtmp">
+    <img src="{{ d.img_url}}">
+</script>
+<style type="text/css">
+    .layui-table-cell{
+        height:auto!important;
+        white-space:normal;
+    }
+</style>
+
+<script>
+    layui.use(['element', 'layer', 'layuimini'], function () {
+        var $ = layui.jquery,
+            element = layui.element,
+            layer = layui.layer;
+        layuimini.init('');
+    });
+
+    // 修改密码
+    function editPassword() {
+        var index = layer.open({
+            type: 2,
+            title: '<i class=iconfont>&#xe7c7;</i> 修改密码',
+            area: ['550px', '400px'],
+            content: ['{:url("index/editPassword")}', 'no'],
+            skin: 'layui-layer-molv',
+            btn: ['保存', '取消'],
+            btnAlign: 'c',
+            yes: function(index, layero){
+                var submit = layero.find('iframe').contents().find("#submit");// #subBtn为页面层提交按钮ID
+                submit.click();// 触发提交监听
+                return false;
+            },
+            btn2:function (index,layero) {
+                layer.close(index);
+            }
+        });
+    }
+
+
+
+    // 退出登录
+    function logout() {
+        layer.confirm('您确定要退出吗？',{
+            icon: 3,
+            skin: 'layer-ext-moon'
+        },function(index){
+            window.location = '{:url("Login/logout")}';
+        });
+    }
+
+    layui.use(['jquery', 'layer', 'form', 'table'], function () {
+        var $ = layui.$,
+            layer = layui.layer,
+            form = layui.form,
+            table = layui.table;
+
+        // 渲染数据表格
+        table.render({
+            elem : '#dataTable'
+            ,url : '{:url("deviceList")}'
+            ,cellMinWidth: 80
+            ,page: {
+                prev: '上一页',
+                next: '下一页',
+                layout: ['prev', 'page', 'next', 'skip', 'count', 'limit']
+            }
+            // ,toolbar: 'default'  // 开启顶部工具栏（默认模板）
+            ,toolbar: '#toolbar' // 指定顶部工具栏模板
+            // ,even: true  // 隔行背景
+            ,title: '轮播图表'  // 表格标题，用户导出数据文件名
+            ,text: {  // 指定无数据或数据异常时的提示文本
+                none: '暂无相关数据' //默认：无数据。注：该属性为 layui 2.2.5 开始新增
+            }
+            ,id: 'dataTable'
+            ,cols: [[  // 表格列标题及数据
+                {title: '#', type: 'numbers'}
+                ,{checkbox: true}
+                ,{field: 'id', width: 150, title: 'ID', sort: true, align: 'center'}
+                ,{field: 'tem', width: 200, title: '温度', align: 'center'}
+                ,{field: 'hum', width: 200, title: '湿度', align: 'center'}
+                ,{field: 'longitude', width: 200, title: '经度', align: 'center'}
+                ,{field: 'latitude', width: 200, title: '纬度', align: 'center'}
+                ,{field: 'date', width: 200, title: '记录时间', sort: true,  align: 'center'}
+            ]], done() {
+                // 搜索功能
+                var $ = layui.$, active = {
+                    reload: function(){
+                        var keywords = $('#keywords');
+                        //执行重载
+                        table.reload('dataTable', {
+                            page: {
+                                curr: 1 //重新从第 1 页开始
+                            }
+                            ,where: {
+                                keywords: keywords.val()
+                            }
+                        }, 'data');
+                    }
+                };
+                $('.search-btn').on('click', function(){
+                    var type = $(this).data('type');
+                    active[type] ? active[type].call(this) : '';
+                });
+            }
+        });
+
+
+
+    });
+
+
+</script>

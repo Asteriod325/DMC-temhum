@@ -1,0 +1,163 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="renderer" content="webkit|ie-comp|ie-stand">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no" />
+    <meta http-equiv="Cache-Control" content="no-siteapp" />
+    <link rel="icon" href="http://www.qyx0425.top/liangchen.jpg">
+    <title>关于我们</title>
+    {load href="__STATIC__/tongji/plugins/bootstrap-3.3.7/css/bootstrap.min.css"/}
+
+
+
+</head>
+<style>
+    .navbar{background: #0F769F;}
+
+</style>
+<body>
+
+<nav class="navbar navbar-inverse " role="navigation">
+    <div class="container-fluid">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#example-navbar-collapse">
+                <span class="sr-only">切换导航</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="#">
+                <img src="http://www.qyx0425.top/liangchen.jpg" height="100%" />
+            </a>
+        </div>
+        <div class="collapse navbar-collapse" id="example-navbar-collapse">
+            <ul class="nav navbar-nav">
+                <li ><a class="icon-bar" href="index.html">监控中心</a>
+                </li>
+                <li><a href="device.html">数据中心</a>
+                </li>
+                <li> <a href="javascript:;" onclick="editPassword();" data-title="修改密码" data-icon="fa fa-gears">修改密码</a>
+                </li>
+                <li class="active"><a href="about.html">关于我们</a>
+                </li>
+            </ul>
+            <ul class="nav navbar-nav navbar-right">
+                <li><a>欢迎您,admin</a>
+                </li>
+                <li><a href="javascript:;" class="login-out" onclick="logout()">退出登录</a>
+                </li>
+            </ul>
+        </div>
+    </div>
+</nav>
+<div class="container-fluid row=6">
+    <blockquote class="blockquote">
+        <p class="text-info">需要点时间小组成员介绍:</p>
+    </blockquote>
+
+<table class="table " style="width: 100%; height: 600px;">
+<!--    <caption>需要点时间组成员:</caption>-->
+    <!-- 表头，组合为t+head, t代表table的意思-->
+    <thead>
+    <tr>
+        <th>ID</th>
+        <th>姓名</th>
+        <th>分工</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr class="success">
+        <th scope="row">1</th>
+        <td>高东昇(组长)</td>
+        <td>框架的编写以及各种语言(java,go,nodejs)客户端依赖包的编写+文档</td>
+    </tr>
+    <tr class="warning">
+        <th scope="row">2</th>
+        <td>陈阴罗</td>
+        <td>负责调用项目文档中的客户端代码提供(java)</td>
+    </tr>
+    <tr class="danger">
+        <th scope="row">3</th>
+        <td>郑逺</td>
+        <td>负责将框架的简介，使用文档写成web页面</td>
+    </tr>
+    <tr class="active">
+        <th scope="row">4</th>
+        <td>张贻鑫</td>
+        <td>后台前端</td>
+    </tr>
+    <tr class="warning">
+        <th scope="col">5</th>
+        <td>李芳</td>
+        <td>后台前端+文档</td>
+    </tr>
+    <tr class="success">
+        <th scope="row">6</th>
+        <td>秦宇欣</td>
+        <td>后台后端+硬件端+文档</td>
+    </tr>
+    </tbody>
+</table>
+
+</div>
+
+{// 加载js文件}
+{load href="__STATIC__/admin/js/jquery-3.4.1.min.js"/}
+{load href="__STATIC__/admin/layui/layui.js"/}
+{load href="__STATIC__/admin/js/admin/layout.js"/}
+
+{load href="__STATIC__/tep/lib/layer/2.4/layer.js"/}
+{load href="__STATIC__/tongji/plugins/bootstrap-3.3.7/js/bootstrap.min.js"/}
+{// js代码}
+{block name="layui"}
+
+<script>
+    layui.use(['element', 'layer', 'layuimini'], function () {
+        var $ = layui.jquery,
+            element = layui.element,
+            layer = layui.layer;
+        layuimini.init('');
+    });
+
+    // 修改密码
+    function editPassword() {
+        var index = layer.open({
+            type: 2,
+            title: '<i class=iconfont>&#xe7c7;</i> 修改密码',
+            area: ['550px', '400px'],
+            content: ['{:url("index/editPassword")}', 'no'],
+            skin: 'layui-layer-molv',
+            btn: ['保存', '取消'],
+            btnAlign: 'c',
+            yes: function(index, layero){
+                var submit = layero.find('iframe').contents().find("#submit");// #subBtn为页面层提交按钮ID
+                submit.click();// 触发提交监听
+                return false;
+            },
+            btn2:function (index,layero) {
+                layer.close(index);
+            }
+        });
+    }
+
+
+
+    // 退出登录
+    function logout() {
+        layer.confirm('您确定要退出吗？',{
+            icon: 3,
+            skin: 'layer-ext-moon'
+        },function(index){
+            window.location = '{:url("Login/logout")}';
+        });
+    }
+
+</script>
+{/block}
+{block name="javascript"}{/block}
+</body>
+</html>
+
+

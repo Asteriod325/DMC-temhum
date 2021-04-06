@@ -1,0 +1,141 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="renderer" content="webkit|ie-comp|ie-stand">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no" />
+    <meta http-equiv="Cache-Control" content="no-siteapp" />
+    <link rel="icon" href="http://www.qyx0425.top/liangchen.jpg">
+    <title>需要点时间组-注册</title>
+    {load href="__STATIC__/login/css/bootstrap.css"/}
+    {load href="__STATIC__/login/css/login.css"/}
+
+    {load href="__STATIC__/tongji/plugins/bootstrap-3.3.7/css/bootstrap.min.css"/}
+    {load href="__STATIC__/admin/css/public/public.css"/}
+    {load href="__STATIC__/admin/layui/css/layui.css"/}
+    {load href="__STATIC__/admin/css/admin/layuimini.css"/}
+    {load href="__STATIC__/admin/css/font-awesome-4.7.0/css/font-awesome.min.css"/}
+    {load href="__STATIC__/admin/css/iconfont/iconfont.css"/}
+</head>
+<body class="login-body">
+<!--导航栏-->
+<div class="login-nav">
+    <!-- Image Logo -->
+    <a class="nav-a" href="http://www.qyx0425.top/liangchen">
+        <img class="login-image" src="http://www.qyx0425.top/liangchen.jpg"/>
+    </a>
+    <div class="login-title"> 需要点时间组后台管理系统 </div>
+    <div class="nav-button">
+        <a class="nav-denglu" href="index.html">登录</a>
+    </div>
+</div> <!-- end of container -->
+
+<!--登录-->
+<header>
+    <div>
+        <div class="text-title">
+            <h1>注册</h1>
+
+        </div>
+
+        <div class="form-login">
+            <form class="form" >
+                <div class="from-item">
+                    <img class="item-img" src="../../../static/img/shouji.png">
+                    <div class="item-input">
+                        <input  name="phone" id="phone" type="text" placeholder="手机号" class="input">
+                    </div>
+                </div>
+                <div class="from-item">
+                    <img class="item-img" src="../../../static/img/yanzhengma.png">
+                    <div class="item-input">
+                        <input name="phone_code" type="text" placeholder="短信验证码" class="input-s">
+                    </div>
+                    <input type="button" class="code-button" value="获取验证码" onclick="code_send(this)" />
+                </div>
+                <div class="from-item">
+                    <input type="submit" class="form-submit-button" value="注册">
+
+        </div>
+
+            </form>
+        </div>
+    </div>
+</header>
+<div class="footer">
+    <p class="text-center">
+        &copy; 湘ICP备2021001143号
+    </p>
+</div>
+{load href="__STATIC__/tep/lib/jquery/1.9.1/jquery.min.js"/}
+{load href="__STATIC__/tep/lib/layer/2.4/layer.js"/}
+{load href="__STATIC__/tongji/plugins/bootstrap-3.3.7/js/bootstrap.min.js"/}
+<script type="text/javascript">
+    //发送验证码
+    var countdown=60;
+
+    function code_send(obj) {
+        send_sms();
+        settime(obj)
+    }
+
+    function send_sms() {
+        var phone = document.getElementById("phone").value;
+        console.log(phone);
+        $.ajax({
+            url: "{:url('Login/send')}",
+            data: {
+                phone:phone
+            },
+            type: 'post',
+        });
+    }
+
+    function settime(obj) {
+        if (countdown == 0) {
+            obj.removeAttribute("disabled");
+            obj.value="获取验证码";
+            countdown = 60;
+            return;
+        } else {
+            obj.setAttribute("disabled", true);
+            obj.value="重新发送(" + countdown + ")";
+            countdown--;
+        }
+        setTimeout(function() {
+                settime(obj) }
+            ,1000)
+    }
+
+    $(function() {
+        //登录
+        $("form").submit(function(e){
+            var res = $(this).serialize();
+            var url = "{:url('Login/confirmCode')}";
+            $.ajax({
+                url:  url,
+                data: res,
+                type: 'post',
+                success:function(data){
+                    if (data.code == 1) {
+                        layer.alert(data.msg,{icon:6},function (index) {
+                            layer.close(index);
+                            window.location.href = "{:url('login/index')}";
+                        });
+                    }
+                    else{
+                        layer.alert(data.msg,{icon:5},function (index) {
+                            layer.close(index);
+                            window.location.reload();
+                        });
+                    }
+                }
+            });
+            return false; // 阻止表单跳转
+        });
+    });
+
+</script>
+</body>
+</html>

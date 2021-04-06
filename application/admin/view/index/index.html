@@ -1,0 +1,546 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="renderer" content="webkit|ie-comp|ie-stand">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no" />
+    <meta http-equiv="Cache-Control" content="no-siteapp" />
+    <meta name="viewport" content="initial-scale=1.0, user-scalable=no" />
+    <link rel="icon" href="http://www.qyx0425.top/liangchen.jpg">
+    <title>需要点时间组-页面</title>
+    {load href="__STATIC__/tongji/plugins/bootstrap-3.3.7/css/bootstrap.min.css"/}
+
+</head>
+<style>
+    .navbar{background: #0F769F;}
+
+</style>
+<script type="text/javascript" src="http://api.map.baidu.com/api?v=1.0&type=webgl&ak=pw3Oy7b1RuF9irbOYvWAKyCaToz3BZBE"></script>
+<body>
+<nav class="navbar navbar-inverse"  role="navigation">
+    <div class="container-fluid">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#example-navbar-collapse">
+                <span class="sr-only">切换导航</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="#">
+                <img src="http://www.qyx0425.top/liangchen.jpg" height="100%" />
+            </a>
+        </div>
+        <div class="collapse navbar-collapse" id="example-navbar-collapse">
+            <ul class="nav navbar-nav">
+                <li class="active"><a class="icon-bar" href="index.html">监控中心</a>
+                </li>
+                <li><a href="device.html">数据中心</a>
+                </li>
+                <li>   <a href="javascript:;" onclick="editPassword();" data-title="修改密码" data-icon="fa fa-gears">修改密码</a>
+                </li>
+                <li><a href="about.html">关于我们</a>
+                </li>
+            </ul>
+            <ul class="nav navbar-nav navbar-right">
+                <li><a>欢迎您,admin</a>
+                </li>
+                <li><a href="javascript:;" class="login-out" onclick="logout()">退出登录</a>
+                </li>
+            </ul>
+        </div>
+    </div>
+</nav>
+<div id="container">
+    <div class="row" >
+        <div class="col-xs-4 col-sm-4"
+             style="background-color: #1E1E1E;
+         box-shadow: inset 1px -1px 1px #444, inset -1px 1px 1px #444;">
+            <p style="font-size: large;color: rosybrown">温度</p>
+            <div id="tem1"  style="height: 300px;"></div>
+            <div style="background: white;height: 10px;"></div>
+            <div style="margin-top:10px;margin-bottom: 10px;">
+                <table border="8px" cellspacing="0" style="font-size: large;font-family: 'Consolas', monospace;color: ghostwhite">
+                    <col width="130px">
+                    <col width="130px">
+                    <col width="130px">
+                    <col width="130px">s
+                    <tr align="center" height="40px">
+                        <td colspan="7">节点信息</td>
+                    </tr>
+
+                    <tr align="center" height="40px">
+                        <td>节点编号</td>
+                        <td>温度</td>
+                        <td>状态</td>
+                        <td>时间</td>
+                    </tr>
+                    {volist name="datas" id="vo"}
+                    <tr align="center" height="40px">
+                        <td>{$vo.pos}</td>
+                        <td>{$vo.tem}</td>
+                        <td>online</td>
+                        <td>{$vo.recordTime}</td>
+                    </tr>
+                    {/volist}
+
+                </table>
+
+            </div>
+            <div id="tem2" style="height:400px">
+
+            </div>
+        </div>
+        <div class="col-xs-4 col-sm-4"
+             style="background-color: #1E1E1E;">
+            <div id="Date" style="height: 120px;background:#CD5C55;line-height: 120px;text-align: center;font-size:xx-large"></div>
+
+            <div id="alarm" style="background:#228B22;height: 200px;">
+                <p style="height: 200px;line-height: 200px;text-align: center;font-size: xx-large;color: white">当前数据正常</p>
+            </div>
+
+
+            <div id="map" style="height:570px; border:1px solid silver; "></div>
+
+        </div>
+        <div class="clearfix visible-xs"></div>
+
+        <div class="col-xs-4 col-sm-4"
+             style="background-color: #1E1E1E;
+         box-shadow:inset 1px -1px 1px #444, inset -1px 1px 1px #444;">
+            <p style="font-size: large;color: rosybrown">湿度</p>
+            <div id="hum1"  style="height: 300px;"></div>
+            <div style="background: white;height: 10px;"></div>
+            <div style="margin-top:10px">
+                <table border="8px" cellspacing="0" style="font-size: large;font-family: 'Consolas', monospace;color: ghostwhite">
+                    <col width="130px">
+                    <col width="130px">
+                    <col width="130px">
+                    <col width="130px">
+                    <tr align="center" height="40px">
+                        <td colspan="7">节点信息</td>
+                    </tr>
+
+                    <tr align="center" height="40px">
+                        <td>节点编号</td>
+                        <td>湿度</td>
+                        <td>状态</td>
+                        <td>时间</td>
+                    </tr>
+                    {volist name="datas" id="vo"}
+                    <tr align="center" height="40px">
+                        <td>{$vo.pos}</td>
+                        <td>{$vo.hum}</td>
+                        <td>online</td>
+                        <td>{$vo.recordTime}</td>
+                    </tr>
+                    {/volist}
+
+                </table>
+            </div>
+            <div id="hum2" style="height: 400px;"></div>
+        </div>
+
+    </div>
+
+
+</div>
+
+{// 加载js文件}
+{load href="__STATIC__/admin/js/jquery-3.4.1.min.js"/}
+{load href="__STATIC__/admin/layui/layui.js"/}
+{load href="__STATIC__/admin/js/admin/layout.js"/}
+{load href="__STATIC__/tep/lib/layer/2.4/layer.js"/}
+{load href="__STATIC__/tongji/plugins/bootstrap-3.3.7/js/bootstrap.min.js"/}
+
+{load href="__STATIC__/tongji/plugins/echarts/echarts.min.js"/}
+{load href="__STATIC__/tongji/plugins/echarts/echarts-theme.js"/}
+
+{// js代码}
+{block name="layui"}
+
+<script>
+
+
+    var tem=0;
+    var hum=0;
+    var recordTime="";
+    var sock = null;
+    //  var wsuri = "ws://10.0.0.100:8188/consumer"; //本地的地址 是可以改变的哦
+    var wsuri = "ws://47.93.216.229:8188/consumer"; //本地的地址 是可以改变的哦
+    var msgNum = 0;
+
+    window.onload = function() {
+        var num = 0;
+        //可以看到客户端JS，很容易的就通过WebSocket函数建立了一个与服务器的连接sock，当握手成功后，会触发WebScoket对象的onopen事件，告诉客户端连接已经成功建立。客户端一共绑定了四个事件。
+        console.log("开始了 onload");
+
+        sock = new WebSocket(wsuri);
+        //建立连接后触发
+        sock.onopen = function() {
+            console.log(" 建立连接后触发 connected to " + wsuri);
+            send();
+        };
+        // 关闭连接时候触发
+        sock.onclose = function(e) {
+            console.log("关闭连接时候触发 connection closed (" + e.code + ")");
+        };
+        // 收到消息后触发
+        sock.onmessage = function(e) {
+            num++;
+            console.log(num, e.data);
+            var datas=JSON.parse(e.data);
+            tem=JSON.parse(datas.data.message).tem.toFixed(2)-0;
+            hum=JSON.parse(datas.data.message).hum.toFixed(2)-0;
+            recordTime=JSON.parse(datas.data.message).recordTime;
+            //console.log(JSON.parse(datas.data.message).tem);
+        };
+        //发生错误的时候触发
+        sock.onerror=function (e) {
+            console.log("发生错误时候触发"+wsuri)
+        };
+
+    };
+    //如果sock被关闭掉了 这里 也会报错的啊
+    function send() {
+        /*
+               var xhr = new XMLHttpRequest()
+                xhr.open("POST","http://47.93.216.229:8288/produce")
+               // xhr.open("POST","http://10.0.0.100:3344/produce")
+                xhr.onload = function(res){
+                    console.log(res.response)
+                }
+                var value = Math.random() * 100
+                xhr.send(JSON.stringify({
+                    Topic:"phone",
+                     Msg:""+value,
+                    Key:"hxBA7bZlcJKE72kZ1adLmdnjhGx0Q+PgM3joSeLxcTM="
+                 }))
+                 console.log(value)
+            }*/
+
+        var obj = {
+            Groupname :"test",
+            Topic:"phone",
+            Key:"hxBA7bZlcJKE72kZ1adLmdnjhGx0Q+PgM3joSeLxcTM=",
+        };
+        console.log('..............');
+        sock.send(JSON.stringify(obj));
+    }
+
+
+
+    // var map = new BMapGL.Map("map");
+    // // 创建地图实例
+    // var point = new BMapGL.Point(116.404, 39.915);
+    // // 创建点坐标
+    // map.centerAndZoom(point, 15);
+    // // 初始化地图，设置中心点坐标和地图级别
+
+    var map = new BMapGL.Map("map");
+
+    //没有获取到地理位置信息之前，展示的地图的位置
+    var point = new BMapGL.Point(111.99639636,27.7410733);
+
+    //缩放比例
+    map.centerAndZoom(point,14);
+
+
+
+
+
+    layui.use(['element', 'layer', 'layuimini'], function () {
+        var $ = layui.jquery,
+            element = layui.element,
+            layer = layui.layer;
+        layuimini.init('');
+    });
+
+    // 修改密码
+    function editPassword() {
+        var index = layer.open({
+            type: 2,
+            title: '<i class=iconfont>&#xe7c7;</i> 修改密码',
+            area: ['550px', '400px'],
+            content: ['{:url("index/editPassword")}', 'no'],
+            skin: 'layui-layer-molv',
+            btn: ['保存', '取消'],
+            btnAlign: 'c',
+            yes: function(index, layero){
+                var submit = layero.find('iframe').contents().find("#submit");// #subBtn为页面层提交按钮ID
+                submit.click();// 触发提交监听
+                return false;
+            },
+            btn2:function (index,layero) {
+                layer.close(index);
+            }
+        });
+    }
+
+
+
+    // 退出登录
+    function logout() {
+        layer.confirm('您确定要退出吗？',{
+            icon: 3,
+            skin: 'layer-ext-moon'
+        },function(index){
+            window.location = '{:url("login/logout")}';
+        });
+    }
+    function doubleNum(n){
+        if(n<10){
+            return "0"+n;
+
+        }else{
+            return n;
+        }
+    }
+    setInterval(function(){
+        var date = new Date();
+        var year = date.getFullYear();    //获取当前年份
+        var mon = date.getMonth()+1;      //获取当前月份
+        var da = date.getDate();          //获取当前日
+        var day = date.getDay();          //获取当前星期几
+        var h = doubleNum(date.getHours());          //获取小时
+        var m = doubleNum(date.getMinutes());        //获取分钟
+        var s = doubleNum(date.getSeconds());        //获取秒
+        var d = document.getElementById('Date');
+        d.innerHTML=year+'年'+mon+'月'+da+'日'+' '+h+':'+m+':'+s;
+    },1000);
+
+    var chartDom = document.getElementById('tem1');
+    var myChart = echarts.init(chartDom);
+    var option;
+    option = {
+        tooltip: {
+            formatter: '{a} <br/>{b} : {c}%'
+        },
+        toolbox: {
+            feature: {
+                restore: {},
+                saveAsImage: {}
+            }
+        },
+        series: [
+            {
+                name: '实时温度',
+                type: 'gauge',
+                detail: {formatter: '{value}°C'},
+                data: [{value: 0, name: '温度'}]
+            }
+        ]
+    };
+
+
+    var chartDom2 = document.getElementById('hum1');
+    var myChart2 = echarts.init(chartDom2);
+    var option2;
+    option2 = {
+        tooltip: {
+            formatter: '{a} <br/>{b} : {c}%'
+        },
+        toolbox: {
+            feature: {
+                restore: {},
+                saveAsImage: {}
+            }
+        },
+        series: [
+            {
+                name: '实时湿度',
+                type: 'gauge',
+                detail: {formatter: '{value}%'},
+                data: [{value: 0, name: '湿度'}]
+            }
+        ]
+    };
+    myChart.setOption(option, true);
+    myChart2.setOption(option2, true);
+
+    var chartDom3 = document.getElementById('tem2');
+    var myChart3 = echarts.init(chartDom3, 'dark');
+    var option3;
+
+    option3 = {
+
+        title: {
+            text: '一周温度变化曲线'
+        },
+        tooltip: {
+            trigger: 'axis'
+        },
+        legend: {
+            data: ['温度', ]
+        },
+        grid: {
+            left: '0%',
+            right: '0%',
+            bottom: '0%',
+            containLabel: true
+        },
+        toolbox: {
+            feature: {
+                saveAsImage: {}
+            }
+        },
+        xAxis: {
+            type: 'category',
+            boundaryGap: false,
+            data: ['周一', '周二', '周三', '周四', '周五', '周六', '周日']
+        },
+        yAxis: {
+            type: 'value'
+        },
+        series: [
+            {
+                name: '温度',
+                type: 'line',
+                stack: '总量',
+                data: [10, 20, 30, 10, 20, 10, 20]
+            },
+
+
+        ],
+
+    };
+    option3 && myChart3.setOption(option3);
+
+
+    var chartDom4 = document.getElementById('hum2');
+    var myChart4= echarts.init(chartDom4, 'dark');
+    var option4;
+
+    option4 = {
+        title: {
+            text: '一周湿度变化曲线'
+        },
+        tooltip: {
+            trigger: 'axis'
+        },
+        legend: {
+            data: ['湿度', ]
+        },
+        grid: {
+            left: '0%',
+            right: '0%',
+            bottom: '0%',
+            containLabel: true
+        },
+        toolbox: {
+            feature: {
+                saveAsImage: {}
+            }
+        },
+        xAxis: {
+            type: 'category',
+            boundaryGap: false,
+            data: ['周一', '周二', '周三', '周四', '周五', '周六', '周日']
+        },
+        yAxis: {
+            type: 'value'
+        },
+        series: [
+            {
+                name: '湿度',
+                type: 'line',
+                stack: '总量',
+                data: [70, 80, 90, 80, 70, 70, 70]
+            },
+
+
+        ],
+        color: ['#00EE00', '#FF9F7F','#FFD700']
+    };
+    option4&& myChart4.setOption(option4);
+
+
+    setInterval(function () {
+        //  option.series[0].data[0].value = (Math.random() * 100).toFixed(2) - 0;
+        $.ajax({
+            url: ['{:url("index/getdata")}'],
+            type: 'POST',
+            dataType: 'JSON',
+            data:{},
+            success:function(json){
+                console.log(json['tem']);
+                // alert(json['tem'].toFixed(2)-0);
+                myChart.setOption({
+                    series: [{
+                       // data: json['tem'].toFixed(2)-0
+                       // data:tem.toFixed(2)-0
+                        data:tem
+                    }]
+                });
+                myChart2.setOption({
+                    series: [{
+                       // data: json['hum'].toFixed(2)-0
+                        data:hum
+                    }]
+                });
+
+
+            }
+        });
+        myChart.setOption(option, true);
+        myChart2.setOption(option2, true);
+        var marker =new BMapGL.Marker(point); // 创建标注点
+        marker.setAnimation(BMAP_ANIMATION_BOUNCE); //跳动的动画
+        var opts = {title : '<span style="font-size:14px;color:#0A8021">信息</span>'};
+        var infoWindow =new BMapGL.InfoWindow("" +
+            "<div style='line-height:1.8em;font-size:12px;'>经度:111.99639636 纬度:27.74107330</div>" +
+            "<div style='line-height:1.8em;font-size:12px;'>"+"温度:"+tem+" 湿度:"+hum +"</div>",
+            opts); // 创建信息窗口对象，引号里可以书写任意的html语句。
+        marker.addEventListener("mouseover", function(){
+            this.openInfoWindow(infoWindow);
+        });
+       // map.addOverlay(marker);
+        map.addOverlay(marker);
+    },3000);
+    //<script type="text/javascript" src="http://api.map.baidu.com/api?v=1.0&type=webgl&ak=pw3Oy7b1RuF9irbOYvWAKyCaToz3BZBE">
+
+
+
+    // 	var map = new BMap.Map("map");
+
+    //     //没有获取到地理位置信息之前，展示的地图的位置
+    // 	var point = new BMap.Point(116.331398,39.897445);
+
+    //     //缩放比例
+    // 	map.centerAndZoom(point,14);
+
+    //     //开始来获取当前位置
+    // 	var geolocation = new BMap.Geolocation();
+    // 	geolocation.getCurrentPosition(function(r){
+    // 		if(this.getStatus() == BMAP_STATUS_SUCCESS){
+    // 			var mk = new BMap.Marker(r.point);
+    // 			map.addOverlay(mk);
+    // 			map.panTo(r.point);
+
+    //             //lng和lat就是经度和纬度
+    //             //longitude: 经度
+    //             //latitude： 纬度
+    // 			alert('您的位置：'+r.point.lng+','+r.point.lat);
+    // 		}
+
+    // 		else {
+    // 			alert('failed'+this.getStatus());
+    // 		}
+    // 	},{enableHighAccuracy: true})
+    //关于状态码
+    //BMAP_STATUS_SUCCESS	检索成功。对应数值“0”。
+    //BMAP_STATUS_CITY_LIST	城市列表。对应数值“1”。
+    //BMAP_STATUS_UNKNOWN_LOCATION	位置结果未知。对应数值“2”。
+    //BMAP_STATUS_UNKNOWN_ROUTE	导航结果未知。对应数值“3”。
+    //BMAP_STATUS_INVALID_KEY	非法密钥。对应数值“4”。
+    //BMAP_STATUS_INVALID_REQUEST	非法请求。对应数值“5”。
+    //BMAP_STATUS_PERMISSION_DENIED	没有权限。对应数值“6”。(自 1.1 新增)
+    //BMAP_STATUS_SERVICE_UNAVAILABLE	服务不可用。对应数值“7”。(自 1.1 新增)
+    //BMAP_STATUS_TIMEOUT	超时。对应数值“8”。(自 1.1 新增)
+
+
+</script>
+{/block}
+{block name="javascript"}{/block}
+</body>
+</html>

@@ -1,0 +1,116 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="renderer" content="webkit|ie-comp|ie-stand">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no" />
+    <meta http-equiv="Cache-Control" content="no-siteapp" />
+    <link rel="icon" href="http://www.qyx0425.top/liangchen.jpg">
+    <title>需要点时间组-登录</title>
+    {load href="__STATIC__/login/css/bootstrap.css"/}
+    {load href="__STATIC__/login/css/login.css"/}
+
+
+
+</head>
+<body class="login-body">
+<!--导航栏-->
+<div class="login-nav">
+    <!-- Image Logo -->
+    <a class="nav-a" href="http://www.qyx0425.top/liangchen">
+        <img class="login-image" src="http://www.qyx0425.top/liangchen.jpg"/>
+    </a>
+    <div class="login-title"> 需要点时间组后台管理系统 </div>
+    <div class="nav-button">
+        <a class="nav-denglu" href="register.html">注册</a>
+    </div>
+</div> <!-- end of container -->
+
+<!--登录-->
+<header>
+    <div>
+        <div class="text-title">
+            <h1>登录</h1>
+            <p>欢迎访问，如果您还没有账号请点击右上方的注册按钮进行注册</p>
+            <p>如果在下方的验证码输入框提示验证码错误或者看不清，请点击验证码重新获取</p>
+        </div>
+        <div class="form-login">
+            <form class="form" >
+                <div class="from-item">
+                    <img class="item-img" src="../../../static/img/zhanghu.png">
+                    <div class="item-input">
+                        <input  name="account" type="text" placeholder="用户名(手机号)" class="input">
+                    </div>
+                </div>
+                <div class="from-item">
+                    <img class="item-img" src="../../../static/img/mima.png">
+                    <div class="item-input">
+                        <input  name="password" type="password" placeholder="密码" class="input">
+                    </div>
+                </div>
+
+                <div class="from-item">
+                    <img class="item-img" src="../../../static/img/yanzhengma.png">
+                    <div class="item-input">
+                        <input  name="code" type="text" placeholder="验证码" class="input-r">
+                    </div>
+                    <img class="reloadverify" src="{:url('Login/verify')}">
+                </div>
+                <div class="from-item">
+                    <input type="submit" class="form-submit-button" value="登录">
+                </div>
+
+            </form>
+        </div>
+    </div>
+</header>
+<div class="jumbotron text-center" style="margin-bottom:0;background: #1b181b">
+    <p> &copy; 湘ICP备2021001143号</p>
+</div>
+
+{load href="__STATIC__/tep/lib/jquery/1.9.1/jquery.min.js"/}
+{load href="__STATIC__/tep/lib/layer/2.4/layer.js"/}
+{load href="__STATIC__/tongji/plugins/bootstrap-3.3.7/js/bootstrap.min.js"/}
+<script>
+$(function() {
+    // 刷新验证码
+    var verifyimg = $(".reloadverify").attr("src");
+    $(".reloadverify").click(function() {
+        if (verifyimg.indexOf('?') > 0) {
+            $(".reloadverify").attr("src", verifyimg + '&random=' + Math.random());
+        } else {
+            $(".reloadverify").attr("src", verifyimg.replace(/\?.*$/, '') + '?' + Math.random());
+        }
+    });
+
+    //登录
+    $("form").submit(function(e){
+        var res = $(this).serialize();
+        var url = "{:url('Login/adminLogin')}";
+        $.ajax({
+            url:  url,
+            data: res,
+            type: 'post',
+            success:function(data){
+                if (data.code == 1) {
+                    layer.alert(data.msg,{icon:6},function (index) {
+                        layer.close(index);
+                        window.location.href = "{:url('Index/index')}";
+                    });
+                }
+                else{
+                    layer.alert(data.msg,{icon:5},function (index) {
+                        layer.close(index);
+                        window.location.reload();
+                    });
+                }
+            }
+        });
+        return false; // 阻止表单跳转
+    });
+});
+
+</script>
+</body>
+</html>

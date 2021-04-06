@@ -1,0 +1,140 @@
+/*登录样式*/
+.login-body{
+    background-image: url("http://www.qyx0425.top/bg.jpeg");
+
+    width: 100%;
+    height: 100%;
+    margin: 0px;
+    padding: 0px;
+}
+
+.login-nav{
+    height: 160px;
+    width: 100%;
+}
+
+.nav-a{
+    float: left;
+}
+
+.login-image{
+    height: 80px;
+    width: 80px;
+    margin: 40px;
+    border-radius: 100%;
+}
+
+.login-title{
+    margin-top: 50px;
+    color: #fff;
+    font: 700 3.2rem/3.125rem "Open Sans", sans-serif;
+    float: left;
+}
+
+.nav-button{
+    float: right;
+    margin-top: 55px;
+}
+
+.nav-button{
+    float: right;
+}
+
+.nav-shouye{
+    padding: 0.625rem 0.75rem 0.625rem 0.75rem;
+    color: #f7f5f5;
+    opacity: 0.8;
+    text-decoration: none;
+    transition: all 0.2s ease;
+}
+
+.nav-denglu{
+    display: inline-block;
+    padding: 0.875rem 1.5rem 0.875rem 1.5rem;
+    border: 0.125rem solid #f7f5f5;
+    border-radius: 2rem;
+    background-color: transparent;
+    color: #f7f5f5;
+    font: 700 0.875rem/0 "Open Sans", sans-serif;
+    text-decoration: none;
+    transition: all 0.2s;
+    margin-right: 20px;
+}
+
+.text-title{
+    text-align: center;
+    color: #f7f5f5;
+}
+
+.form-login{
+    margin: auto;
+    height: 300px;
+    width: 420px;
+    border-radius: 0.5rem;
+    background-color: #f3f7fd;
+}
+
+.from-item{
+    padding: 40px 40px 20px 40px;
+}
+
+.item-img{
+    width: 30px;
+    height: 30px;
+    float: left;
+}
+
+.item-input{
+    margin-top: -5px;
+    float: left;
+}
+
+.input-r{
+    margin-left: 20px;
+    font-size: 16px;
+    height: 40px;
+    width: 190px;
+    padding: 8px;
+}
+
+.input-s{
+    margin-left: 20px;
+    font-size: 16px;
+    height: 40px;
+    width: 150px;
+    padding: 8px;
+}
+
+.input{
+    margin-left: 20px;
+    font-size: 16px;
+    height: 40px;
+    width: 280px;
+    padding: 8px;
+}
+
+.reloadverify{
+    float: left;
+    width:90px;
+    height: 40px;
+    border: solid 1px #ddd;
+    margin-top: -5px;
+}
+
+.code-button{
+    float: left;
+    width:130px;
+    height: 40px;
+    border: solid 1px #ddd;
+    margin-top: -5px;
+    color: #999999;
+}
+
+.form-submit-button{
+    color: #FFFFFF;
+    height: 50px;
+    width: 330px;
+    background-color: #ff7440;
+    border: 0.125rem solid #f7f5f5;
+    border-radius: 2rem;
+}
